@@ -1,0 +1,242 @@
+@charset "utf-8";
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  background: #fff;
+  color: #393939;
+  line-height: 1.3;
+}
+
+.main-container {
+  background: rgb(43, 135, 206);
+  color: #fff;
+  position: relative;
+  user-select: none;
+  overflow: hidden;
+  text-align: center;
+}
+
+.main-container .inner {
+  margin: 0 auto;
+  max-width: 1010px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.main-container .audio-container:hover {
+  opacity: 1;
+}
+
+svg:not(:root).svg-inline--fa {
+  overflow: visible;
+}
+
+.svg-inline--fa {
+  display: inline-block;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+.svg-inline--fa.fa-w-18 {
+  width: 1.125em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.main-container .desktop-only {
+  display: none;
+  height: 100%;
+}
+
+.main-container .anim-slide-fade-in {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+  animation: slideFadeIn 0.5s ease-out;
+}
+
+.main-container .audio-container {
+  position: absolute;
+  z-index: 10;
+  left: 20px; bottom: 20px;
+  opacity: 0.3;
+  cursor: pointer;
+}
+
+.main-container .hit-container {
+  text-align: center;
+  font-size: 28px;
+  margin: 0 15px;
+  display: none;
+}
+
+.main-container .hit-container .text {
+  opacity: 0.6;
+  margin-right: 10px;
+}
+
+.main-container .target-container {
+  height: 100%;
+  position: relative;
+  perspective: 100px;
+  perspective-origin: center center;
+}
+
+.main-container .target-container .target {
+  cursor: pointer;
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  animation: targetShow 0.2s ease-out 0s 1 normal none running;
+}
+
+.target .bg {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  width: 100px; height: 100px;
+  transform: translate(-50%, -50%);
+}
+
+.target .circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+}
+
+.target .circle1 {
+  width: calc(100px / 3); height: calc(100px / 3);
+}
+
+.target .circle2 {
+  width: calc(100px / 1.5); height: calc(100px / 1.5);
+}
+
+.target .circle3 { 
+  width: 100px; height: 100px;
+}
+
+.target .line {
+  position: absolute;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+
+.target .vertical-line {
+  width: 2px; height: 100px;
+}
+
+.target .horizontal-line {
+  width: 100px; height: 2px;
+}
+
+.main-container .result-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.main-container .result-container .score-container {
+  margin-top: 30px;
+}
+
+.main-container .result-container .score-container > p:nth-child(1) {
+  font-size: 24px;
+}
+
+.main-container .result-container .more-container {
+  margin-top: 30px;
+}
+
+.main-container .result-container .more-container > p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.main-container .result-container .more-container .btn {
+  border: 0 none;
+  background: rgb(255, 209, 84);
+  padding: 12px 30px;
+  border-radius: 3px;
+  transition: background-color 0.1s linear 0s;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  margin: 5px 5px 0;
+  color: rgb(51, 51, 51) !important;
+}
+
+.main-container .result-container .more-container .btn-home {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.main-container .result-container .more-container .btn:hover {
+  background: #fff;
+}
+
+@media (min-width: 700px) {
+  .main-container .desktop-only {
+    display: block;
+  }
+}
+
+@media (min-width: 500px) {
+  .main-container .inner {
+    padding: 20px;
+    height: 540px;
+  }
+
+  .main-container h1 {
+    font-size: 80px;
+    font-weight: 400;
+  }
+
+  .main-container .result-container .score-container > p:nth-child(2) {
+    font-size: 80px;
+  }
+}
+
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes targetShow {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5, 0.5);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.05, 1.05);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1, 1);
+  }
+}
