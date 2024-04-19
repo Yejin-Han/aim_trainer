@@ -15,7 +15,6 @@ let updateContainerMetrics = () => {
   targetContainerRect = targetContainer.getBoundingClientRect();
   targetContainerWidth = targetContainerRect.width - 300;  // 스피커 아이콘하고 겹쳐질 것을 우려해서 상하좌우 여백 + 타겟의 크기를 고려하여 컨테이너 너비보다 안쪽으로만 움직이도록 함
   targetContainerHeight = targetContainerRect.height - 200;
-  console.log('updated metrics: ', targetContainerWidth, targetContainerHeight);
 }
 
 updateContainerMetrics();
