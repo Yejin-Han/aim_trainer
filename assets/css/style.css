@@ -180,7 +180,6 @@ svg:not(:root).svg-inline--fa {
   cursor: pointer;
   font-size: inherit;
   font-family: inherit;
-  line-height: inherit;
   margin: 5px 5px 0;
   color: rgb(51, 51, 51) !important;
 }
