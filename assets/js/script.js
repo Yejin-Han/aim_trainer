@@ -94,6 +94,7 @@ const hitTarget = () => {
     isFirstHit = false;
   } else {
     hitTimes.push(new Date().getTime());
+    console.log(hitTimes[hitTimes.length - 1])
     hitDisplay.textContent = tarCnt - hitTimes.length;
   
     if(hitTimes.length >= tarCnt) {

@@ -3,14 +3,50 @@
 * {
   padding: 0;
   margin: 0;
+  font-weight: 400;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-size: 16px;
+  height: 100%;
 }
 
 body {
+  min-width: 360px;
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 18px;
+  font-size: 1.125rem;
   background: #fff;
   color: #393939;
   line-height: 1.3;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+.btn {
+  border: 0 none;
+  padding: 0.75rem 1.875rem;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.1s linear;
+  font-size: inherit;
+  font-family: inherit;
+  color: rgb(51, 51, 51) !important;
+}
+
+.btn-save {
+  background: rgb(255, 209, 84);
+}
+
+.btn-home {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.btn:hover {
+  background: #fff;
 }
 
 .main-container {
@@ -24,9 +60,18 @@ body {
 
 .main-container .inner {
   margin: 0 auto;
+  padding: 1.25rem;
   max-width: 1010px;
+  height: 37.5rem;
   position: relative;
-  box-sizing: border-box;
+}
+
+.main-container .audio-container {
+  position: absolute;
+  z-index: 10;
+  left: 1.5rem; bottom: 1.5rem;
+  opacity: 0.3;
+  cursor: pointer;
 }
 
 .main-container .audio-container:hover {
@@ -51,12 +96,8 @@ svg:not(:root).svg-inline--fa {
   font-size: 2em;
 }
 
-.main-container .desktop-only {
-  display: none;
-  height: 100%;
-}
-
 .main-container .anim-slide-fade-in {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -66,34 +107,27 @@ svg:not(:root).svg-inline--fa {
   animation: slideFadeIn 0.5s ease-out;
 }
 
-.main-container .audio-container {
-  position: absolute;
-  z-index: 10;
-  left: 20px; bottom: 20px;
-  opacity: 0.3;
-  cursor: pointer;
-}
-
-.main-container .hit-container {
+.hit-container {
   text-align: center;
-  font-size: 28px;
-  margin: 0 15px;
+  font-size: 1.75rem;
+  margin: 0 0.9375rem;
   display: none;
 }
 
-.main-container .hit-container .text {
+.hit-container .text {
   opacity: 0.6;
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 
-.main-container .target-container {
+.target-container {
   height: 100%;
   position: relative;
   perspective: 100px;
   perspective-origin: center center;
+  border: 2px solid #fff;
 }
 
-.main-container .target-container .target {
+.target-container .target {
   cursor: pointer;
   position: absolute;
   top: 50%; left: 50%;
@@ -105,28 +139,27 @@ svg:not(:root).svg-inline--fa {
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
-  width: 100px; height: 100px;
+  width: 6.25rem; height: 6.25rem;
   transform: translate(-50%, -50%);
 }
 
 .target .circle {
   position: absolute;
   border-radius: 50%;
-  border: 2px solid #fff;
-  box-sizing: border-box;
+  border: 0.125rem solid #fff;
   transform: translate(-50%, -50%);
 }
 
 .target .circle1 {
-  width: calc(100px / 3); height: calc(100px / 3);
+  width: calc(6.25rem / 3); height: calc(6.25rem / 3);
 }
 
 .target .circle2 {
-  width: calc(100px / 1.5); height: calc(100px / 1.5);
+  width: calc(6.25rem / 1.5); height: calc(6.25rem / 1.5);
 }
 
 .target .circle3 { 
-  width: 100px; height: 100px;
+  width: 6.25rem; height: 6.25rem;
 }
 
 .target .line {
@@ -136,14 +169,14 @@ svg:not(:root).svg-inline--fa {
 }
 
 .target .vertical-line {
-  width: 2px; height: 100px;
+  width: 0.125rem; height: 6.25rem;
 }
 
 .target .horizontal-line {
-  width: 100px; height: 2px;
+  width: 6.25rem; height: 0.125rem;
 }
 
-.main-container .result-container {
+.result-container {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -152,66 +185,30 @@ svg:not(:root).svg-inline--fa {
   display: none;
 }
 
-.main-container .result-container .score-container {
+.result-container .score-container {
   margin-top: 30px;
 }
 
-.main-container .result-container .score-container > p:nth-child(1) {
-  font-size: 24px;
+.result-container .score-container > p:nth-child(1) {
+  font-size: 1.5rem;
 }
 
-.main-container .result-container .more-container {
-  margin-top: 30px;
+.result-container .score-container > p:nth-child(2) {
+  font-size: 5rem;
 }
 
-.main-container .result-container .more-container > p {
-  font-size: 18px;
+.result-container .more-container {
+  margin-top: 1.875rem;
+}
+
+.result-container .more-container > p {
+  font-size: 1.125rem;
   line-height: 1.5;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
-.main-container .result-container .more-container .btn {
-  border: 0 none;
-  background: rgb(255, 209, 84);
-  padding: 12px 30px;
-  border-radius: 3px;
-  transition: background-color 0.1s linear 0s;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: inherit;
-  font-family: inherit;
-  margin: 5px 5px 0;
-  color: rgb(51, 51, 51) !important;
-}
-
-.main-container .result-container .more-container .btn-home {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-.main-container .result-container .more-container .btn:hover {
-  background: #fff;
-}
-
-@media (min-width: 700px) {
-  .main-container .desktop-only {
-    display: block;
-  }
-}
-
-@media (min-width: 500px) {
-  .main-container .inner {
-    padding: 20px;
-    height: 540px;
-  }
-
-  .main-container h1 {
-    font-size: 80px;
-    font-weight: 400;
-  }
-
-  .main-container .result-container .score-container > p:nth-child(2) {
-    font-size: 80px;
-  }
+.result-container .btn {
+  margin: 0.3125rem 0.3125rem 0;
 }
 
 @keyframes slideFadeIn {
@@ -237,5 +234,30 @@ svg:not(:root).svg-inline--fa {
 
   100% {
     transform: translate(-50%, -50%) scale(1, 1);
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .main-container {
+    height: 100%;
+  }
+
+  .main-container .inner {
+    min-height: 33.75rem;
+    height: 100%;
+  }
+
+  .result-container .more-container {
+    margin-bottom: 10vh;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
   }
 }
