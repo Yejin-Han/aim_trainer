@@ -157,18 +157,28 @@ const copyToClipBoard = async () => {
   }
 }
 
+const shareKakao = () => {
+
+}
+
 const shareNaver = () => {
   const title = encodeURIComponent("나의 에임 점수는?");
   const url = encodeURIComponent(window.location.href);
-  window.open("https://share.naver.com/web/shareView?url=" + url + "&title=" + title);
+  window.open(`https://share.naver.com/web/shareView?url=${url}&title=${title}`);
+}
+
+const shareFacebook = () => {
+  const url = encodeURIComponent(window.location.href);
+  window.open(`http://www.facebook.com/sharer/sharer.php?u=${url}`);
 }
 
 const shareX = () => {
   const text = encodeURIComponent("나의 에임 점수는?");
   const url = encodeURIComponent(window.location.href);
-  window.open("https://twitter.com/intent/tweet?text=" + text + "&url=" + url);
+  window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`);
 }
 
 btnLink.addEventListener('click', copyToClipBoard);
 btnNaver.addEventListener('click', shareNaver);
+btnFacebook.addEventListener('click', shareFacebook);
 btnX.addEventListener('click', shareX);
