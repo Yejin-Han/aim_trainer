@@ -11,13 +11,7 @@ let isFirstHit = true;
 
 let targetContainerRect = 0, targetContainerWidth = 0, targetContainerHeight = 0;
 
-let updateContainerMetrics = () => {
-  targetContainerRect = targetContainer.getBoundingClientRect();
-  targetContainerWidth = targetContainerRect.width - 300;  // 스피커 아이콘하고 겹쳐질 것을 우려해서 상하좌우 여백 + 타겟의 크기를 고려하여 컨테이너 너비보다 안쪽으로만 움직이도록 함
-  targetContainerHeight = targetContainerRect.height - 200;
-}
-
-updateContainerMetrics();
+let prevX = 0, prevY = 0;
 
 function show(elem) {
   elem.style.display = 'block';
@@ -44,6 +38,21 @@ const toggleAudio = () => {
 
 toggleAudio();
 
+const updateContainerMetrics = () => {
+  targetContainerRect = targetContainer.getBoundingClientRect();
+  
+  // 스피커 아이콘하고 겹쳐질 것을 우려해서 상하좌우 여백 + 타겟의 크기를 고려하여 컨테이너 너비보다 안쪽으로만 움직이도록 함
+  if(window.innerWidth <= 768) {
+    targetContainerWidth = targetContainerRect.width - 100;
+    targetContainerHeight = targetContainerRect.height - 150;
+  } else {
+    targetContainerWidth = targetContainerRect.width - 120;
+    targetContainerHeight = targetContainerRect.height - 180;
+  }
+}
+
+updateContainerMetrics();
+
 const createTarget = () => {
   targetContainer.innerHTML = `
     <div class="target" onClick="hitTarget()">
@@ -57,16 +66,27 @@ const createTarget = () => {
   `;
 
   calcRanPos();
+
+  const target = document.querySelector('.target');
+
+  prevX = parseFloat(target.style.left.replace('px', ''));
+  prevY = parseFloat(target.style.top.replace('px', ''));
 }
 
 const calcRanPos = () => {
   const target = document.querySelector('.target');
-  const x = Math.random() * targetContainerWidth + 150;
-  const y = Math.random() * targetContainerHeight + 50;
-  console.log("New position:", x, y);
+  const targetSize = target.querySelector('.bg').offsetWidth;
 
-  target.style.left = `${x}px`;
-  target.style.top = `${y}px`;
+  let newX, newY;
+
+  // 타겟이 너무 조금씩 이동하지 않도록 타겟 사이즈 이상 이동하게 좌표 설정
+  do {
+    newX = Math.random() * targetContainerWidth + targetSize / 2 + 10;
+    newY = Math.random() * targetContainerHeight + targetSize / 2 + 10;
+  } while (Math.sqrt(Math.pow(prevX - newX, 2) + Math.pow(prevY - newY, 2)) < targetSize);
+
+  target.style.left = `${newX}px`;
+  target.style.top = `${newY}px`;
 }
 
 //초기화 함수
@@ -102,7 +122,7 @@ const hitTarget = () => {
       for(let i = 1; i < hitTimes.length; i++) {
         totalTime += (hitTimes[i] - hitTimes[i - 1]);
       }
-      // const totalTime = (hitTimes[hitTimes.length - 1] - hitTimes[0]);
+
       const avgTime = Math.floor(totalTime / tarCnt);
       scoreDisplay.textContent = avgTime;
       hide(hitContainer);

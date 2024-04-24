@@ -124,7 +124,6 @@ svg:not(:root).svg-inline--fa {
   position: relative;
   perspective: 100px;
   perspective-origin: center center;
-  border: 2px solid #fff;
 }
 
 .target-container .target {
@@ -186,7 +185,7 @@ svg:not(:root).svg-inline--fa {
 }
 
 .result-container .score-container {
-  margin-top: 30px;
+  margin-top: 1.875rem;
 }
 
 .result-container .score-container > p:nth-child(1) {
