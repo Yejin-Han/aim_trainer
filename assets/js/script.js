@@ -4,6 +4,11 @@ const hitContainer = document.querySelector('.hit-container');
 const hitDisplay = document.querySelector('.hit');
 const resultContainer = document.querySelector('.result-container');
 const scoreDisplay = document.querySelector('.score');
+const btnLink = document.querySelector('.btn-share.link');
+const btnKakao = document.querySelector('.btn-share.kakao');
+const btnNaver = document.querySelector('.btn-share.naver');
+const btnFacebook = document.querySelector('.btn-share.facebook');
+const btnX = document.querySelector('.btn-share.x');
 
 let tarCnt = 30;
 let hitTimes = [];
@@ -135,3 +140,21 @@ const hitTarget = () => {
 document.querySelector('.btn-home').addEventListener('click', initialize);
 
 window.addEventListener('resize', updateContainerMetrics);
+
+
+
+/* share */
+const copyToClipBoard = async () => {
+  const link = window.location.href;
+
+  try {
+    await navigator.clipboard.writeText(link);
+    alert('링크가 복사되었습니다.');
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/* btnLink.addEventListener('click', copyToClipBoard); */
+
+setTimeout(copyToClipBoard, 100);
