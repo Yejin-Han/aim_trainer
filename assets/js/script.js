@@ -148,13 +148,13 @@ const copyToClipBoard = async () => {
   const link = window.location.href;
 
   try {
-    await navigator.clipboard.writeText(link);
-    alert('링크가 복사되었습니다.');
+    await navigator.clipboard.writeText(link)
+    .then(() => {
+      alert('링크가 복사되었습니다.');
+    })
   } catch (err) {
     console.log(err);
   }
 }
 
-/* btnLink.addEventListener('click', copyToClipBoard); */
-
-setTimeout(copyToClipBoard, 100);
+btnLink.addEventListener('click', copyToClipBoard);
