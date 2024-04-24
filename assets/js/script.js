@@ -159,7 +159,7 @@ const copyToClipBoard = async () => {
 
 const shareNaver = () => {
   const title = encodeURIComponent("나의 에임 점수는?");
-  const url = encodeURI(window.location.href);
+  const url = encodeURIComponent(window.location.href);
   window.open(
     "https://share.naver.com/web/shareView?url=" + url + "&title=" + title
   );
