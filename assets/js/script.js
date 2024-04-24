@@ -157,8 +157,32 @@ const copyToClipBoard = async () => {
   }
 }
 
-const shareKakao = () => {
+Kakao.init('8c95de0cfa76751e9c40c9be9ed41cb2');
 
+const shareKakao = () => {
+  const url = window.location.href;
+  
+  Kakao.Link.sendDefault({
+    objectType: 'feed',
+    content: {
+      title: '나의 에임 점수는?',
+      description: '나의 에임점수를 확인하고 훈련하자!',
+      imageUrl: "https://github.com/Yejin-Han/aim_trainer/blob/main/assets/img/thumbnail.jpg?raw=true",
+      link: {
+        webUrl: url,
+        mobileWebUrl: url,
+      },
+    },
+    buttons: [
+      {
+        title: '공유하기',
+        link: {
+          webUrl: url,
+          mobileWebUrl: url,
+        }
+      }
+    ]
+  })
 }
 
 const shareNaver = () => {
@@ -179,6 +203,7 @@ const shareX = () => {
 }
 
 btnLink.addEventListener('click', copyToClipBoard);
+btnKakao.addEventListener('click', shareKakao);
 btnNaver.addEventListener('click', shareNaver);
 btnFacebook.addEventListener('click', shareFacebook);
 btnX.addEventListener('click', shareX);
