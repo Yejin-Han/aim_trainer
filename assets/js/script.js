@@ -148,7 +148,7 @@ const copyToClipBoard = async () => {
   const link = window.location.href;
 
   try {
-    await navigator.clipboard.writeText(link)
+    await navigator.clipboard.writeText(link) // https나 localhost에서만 작동함
     .then(() => {
       alert('링크가 복사되었습니다.');
     })
