@@ -1,9 +1,16 @@
 const targetContainer = document.querySelector('.target-container');
+const targetContainerInner = targetContainer.querySelector('.inner');
 const titleContainer = document.querySelector('.anim-slide-fade-in');
 const hitContainer = document.querySelector('.hit-container');
 const hitDisplay = document.querySelector('.hit');
 const resultContainer = document.querySelector('.result-container');
 const scoreDisplay = document.querySelector('.score');
+const inputContainer = document.querySelector('.input-container');
+const nameInput = document.querySelector('#user-name');
+const rankContainer = document.querySelector('.rank-container');
+const btnRank = document.querySelector('.btn-rank');
+const btnConfirm = document.querySelector('.btn-confirm');
+const btnSave = document.querySelector('.btn-save');
 const btnLink = document.querySelector('.btn-share.link');
 const btnKakao = document.querySelector('.btn-share.kakao');
 const btnNaver = document.querySelector('.btn-share.naver');
@@ -17,6 +24,8 @@ let isFirstHit = true;
 let targetContainerRect = 0, targetContainerWidth = 0, targetContainerHeight = 0;
 
 let prevX = 0, prevY = 0;
+
+$(".modal-scrollArea").mCustomScrollbar({ theme: "dark-2" });
 
 function show(elem) {
   elem.style.display = 'block';
@@ -59,7 +68,7 @@ const updateContainerMetrics = () => {
 updateContainerMetrics();
 
 const createTarget = () => {
-  targetContainer.innerHTML = `
+  targetContainerInner.innerHTML = `
     <div class="target" onClick="hitTarget()">
       <div class="bg"></div>
       <div class="circle circle1"></div>
@@ -80,6 +89,7 @@ const createTarget = () => {
 
 const calcRanPos = () => {
   const target = document.querySelector('.target');
+  console.log(target)
   const targetSize = target.querySelector('.bg').offsetWidth;
 
   let newX, newY;
@@ -99,6 +109,7 @@ const initialize = () => {
   hide(resultContainer);
   showFlex(titleContainer);
   show(targetContainer);
+  show(btnRank);
 
   hitTimes = [];
   isFirstHit = true;
@@ -110,12 +121,13 @@ const initialize = () => {
 }
 
 const hitTarget = () => {
-  targetContainer.innerHTML = '';
+  targetContainerInner.innerHTML = '';
   createTarget();
 
   if(isFirstHit) {
     show(hitContainer);
     hide(titleContainer);
+    hide(btnRank);
     isFirstHit = false;
   } else {
     hitTimes.push(new Date().getTime());
@@ -160,6 +172,8 @@ const copyToClipBoard = async () => {
 Kakao.init('8c95de0cfa76751e9c40c9be9ed41cb2');
 
 const shareKakao = () => {
+  console.log('shareKakao 실행');
+
   const url = window.location.href;
   
   Kakao.Link.sendDefault({
@@ -173,7 +187,7 @@ const shareKakao = () => {
         mobileWebUrl: url,
       },
     },
-    buttons: [
+    buttons: [ // 버튼 링크는 행사 페이지로?
       {
         title: '공유하기',
         link: {
@@ -197,7 +211,7 @@ const shareFacebook = () => {
 }
 
 const shareX = () => {
-  const text = encodeURIComponent("나의 에임 점수는?");
+  const text = encodeURIComponent("나의 에임 점수는? 👉 ");
   const url = encodeURIComponent(window.location.href);
   window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`);
 }
@@ -207,3 +221,70 @@ btnKakao.addEventListener('click', shareKakao);
 btnNaver.addEventListener('click', shareNaver);
 btnFacebook.addEventListener('click', shareFacebook);
 btnX.addEventListener('click', shareX);
+
+
+
+/* rank */
+btnSave.addEventListener('click', () => {
+  const name = nameInput.value;
+  const time = scoreDisplay.textContent;
+
+  fetch('http://127.0.0.1:3000/score', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name, time })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('Score saved: ', data);
+    alert('Score saved successfully!');
+    updateRankList();
+  })
+  .catch(err => console.error('Error saving score: ', err));
+
+});
+
+btnRank.addEventListener('click', () => {
+  show(rankContainer);
+});
+
+document.querySelector('.rank-container .dim').addEventListener('click', () => {
+  hide(rankContainer);
+});
+
+btnConfirm.addEventListener('click', () => {
+  if(nameInput.value.trim() !== "") {
+    hide(inputContainer);
+  } else {
+    alert("이름을 입력해주세요.");
+  }
+});
+
+const updateRankList = () => {
+  fetch('http://127.0.0.1:3000/scores')
+  .then(res => res.json())
+  .then(scores => {
+    const rankList = document.querySelector('.rank-list');
+    rankList.innerHTML = '';
+
+    if(scores) {
+      scores.forEach((score, idx) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div class="rank-box">
+            <div class="rank-num">${idx + 1}</div>
+            <div class="rank-usr">${score.name}</div>
+            <div class="rank-score">${score.time}</div>
+          </div>
+        `;
+  
+        rankList.appendChild(li);
+      });
+    }
+  })
+  .catch(err => console.error('Error loading scores: ', err));
+}
+
+window.onload = updateRankList;
